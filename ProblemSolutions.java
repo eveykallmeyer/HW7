@@ -112,17 +112,17 @@ public class ProblemSolutions {
     private void mergeDivisbleByKFirst(int arr[], int k, int left, int mid, int right) {
         
         // find the size of each side of the array
-        int leftSize = mid - (left + 1);
+        int leftSize = mid - left + 1;
         int rightSize = right - mid;
 
         // create temporary arrays for each side of the original array
         int[] leftArr = new int[leftSize];
         int[] rightArr = new int[rightSize];
         for (int i = 0; i < leftSize; i++) {
-            leftArr[i] = arr[left+ 1];
+            leftArr[i] = arr[left+ i];
         }
         for (int j = 0; j < rightSize; j++) {
-            rightArr[j] = arr[(mid + 1) + j];
+            rightArr[j] = arr[mid + 1 + j];
         }
 
         // set indexes for each array
@@ -221,7 +221,7 @@ public class ProblemSolutions {
         Arrays.sort(asteroids);
         
         // try to destroy each asteroid
-        long CurrentMass = mass;
+        long currentMass = mass;
         for (int asteroid : asteroids) {
             // return false if an asteroid is not destroyed
             if (currentMass < asteroid) {
