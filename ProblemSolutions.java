@@ -44,7 +44,7 @@ public class ProblemSolutions {
             // loop through the unsorted portion of the array to find the next element to be moved
             for (int j = i; j < n; j++) {
                 // find min for ascending
-                if {
+                if (ascending) {
                     if (values[j] < values[selectionIndex]) {
                         selectionIndex = j;
                     }
@@ -217,10 +217,22 @@ public class ProblemSolutions {
 
     public static boolean asteroidsDestroyed(int mass, int[] asteroids) {
 
-        // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT()
+        // sort asteroids in ascedning order so we face the largest mass last, giving a hgher probability of defeating them all
+        Arrays.sort(asteroids);
+        
+        // try to destroy each asteroid
+        long CurrentMass = mass;
+        for (int asteroid : asteroids) {
+            // return false if an asteroid is not destroyed
+            if (currentMass < asteroid) {
+                return false;
+            }
+            // add the asteroid's mass to the mass of the planet
+            currentMass += asteroid;
+        }
 
-        return false;
-
+        // return true if all asteroids were destroyed
+        return true;
     }
 
 
@@ -255,10 +267,32 @@ public class ProblemSolutions {
 
     public static int numRescueSleds(int[] people, int limit) {
 
-        // YOUR CODE GOES HERE, CONSIDER USING ARRAYS.SORT
+        // sort people by weight in ascending order
+        Arrays.sort(people);
 
-        return -1;
+        // assign pointers for lightest and heaviest people
+        int left = 0;
+        int right = people.length - 1;
 
+        // count how many sleds are needed
+        int sleds = 0;
+
+        // assign people to sleds
+        while (left <= right) {
+            // try to place the lightest and heaviest people together
+            if (people[left] + people[right] <= limit) {
+                // move left pointer if successful
+                left++;
+            }
+            // the heaviest person is assigned a sled, either by themself, or with the lightest person, so move the right pointer
+            right--;
+            
+            // increase the sled count
+            sleds++;
+        }
+        
+        // return the number of sleds used
+        return sleds;
     }
 
 } // End Class ProblemSolutions
