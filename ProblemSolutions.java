@@ -109,20 +109,64 @@ public class ProblemSolutions {
      * The merging portion of the merge sort, divisible by k first
      */
 
-    private void mergeDivisbleByKFirst(int arr[], int k, int left, int mid, int right)
-    {
-        // YOUR CODE GOES HERE, THIS METHOD IS NO MORE THAN THE STANDARD MERGE PORTION
-        // OF A MERGESORT, EXCEPT THE NUMBERS DIVISIBLE BY K MUST GO FIRST WITHIN THE
-        // SEQUENCE PER THE DISCUSSION IN THE PROLOGUE ABOVE.
-        //
-        // NOTE: YOU CAN PROGRAM THIS WITH A SPACE COMPLEXITY OF O(1) OR O(N LOG N).
-        // AGAIN, THIS IS REFERRING TO SPACE COMPLEXITY. O(1) IS IN-PLACE, O(N LOG N)
-        // ALLOCATES AUXILIARY DATA STRUCTURES (TEMPORARY ARRAYS). IT WILL BE EASIER
-        // TO CODE WITH A SPACE COMPLEXITY OF O(N LOG N), WHICH IS FINE FOR PURPOSES
-        // OF THIS PROGRAMMING EXERCISES.
+    private void mergeDivisbleByKFirst(int arr[], int k, int left, int mid, int right) {
+        
+        // find the size of each side of the array
+        int leftSize = mid - (left + 1);
+        int rightSize = right - mid;
 
-        return;
+        // create temporary arrays for each side of the original array
+        int[] leftArr = new int[leftSize];
+        int[] rightArr = new int[rightSize];
+        for (int i = 0; i < leftSize; i++) {
+            leftArr[i] = arr[left+ 1];
+        }
+        for (int j = 0; j < rightSize; j++) {
+            rightArr[j] = arr[(mid + 1) + j];
+        }
 
+        // set indexes for each array
+        int leftIndex = 0;
+        int rightIndex = 0;
+        int mergedIndex = left;
+
+        // merge arrays (elements divisible by k at the front, ascending order for nondivisible elements after)
+        while (leftIndex < leftSize && rightIndex < rightSize) {
+
+            boolean leftDivisible = (leftArr[leftIndex] % k == 0);
+            boolean rightDivisible = (rightArr[rightIndex] % k == 0);
+            
+            // if the left element is divisble by k, and the right is not, put the left element first
+            if (leftDivisible && !rightDivisible) {
+                arr[mergedIndex++] = leftArr[leftIndex++];
+            }
+            // if the right element is divisble by k, and the left is not, put the right element first
+            else if (!leftDivisible && rightDivisible) {
+                arr[mergedIndex++] = rightArr[rightIndex++];
+            }
+            // if neither element is divisible, merge-sort in ascending order
+            else if (!leftDivisible && !rightDivisible) {
+                if (leftArr[leftIndex] <= rightArr[rightIndex]) {
+                    arr[mergedIndex++] = leftArr[leftIndex++];
+                } else {
+                    arr[mergedIndex++] = rightArr[rightIndex++];
+                }
+            }
+            // if both the left and right are divisble by k, put them both into the new array in the current order they are already in
+            else {
+                arr[mergedIndex++] = leftArr[leftIndex++];
+            }
+        }
+
+        // merge the rest of the left side, if the right side is empty
+        while (leftIndex < leftSize) {
+            arr[mergedIndex ++] = leftArr[leftIndex++];
+        }
+
+        // merge the rest of the right side, if the left side is empty
+        while (rightIndex < rightSize) {
+            arr[mergedIndex ++] = rightArr[rightIndex++];
+        }
     }
 
 
