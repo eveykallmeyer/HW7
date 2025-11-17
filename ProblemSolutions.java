@@ -1,6 +1,6 @@
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Evey Kallmeyer / COMP 272/400D-002
  *
  *   This java file contains the problem solutions for the methods selectionSort,
  *   mergeSortDivisibleByKFirst, asteroidsDestroyed, and numRescueCanoes methods.
@@ -38,9 +38,28 @@ public class ProblemSolutions {
 
         for (int i = 0; i < n - 1; i++) {
 
-            // YOU CODE GOES HERE -- COMPLETE THE INNER LOOP OF THIS
-            // "SELECTION SORT" ALGORITHM.
-            // DO NOT FORGET TO ADD YOUR NAME / SECTION ABOVE
+            // define the index of the first element of the unsorted array, aka the index that will be swapped with j
+            int selectionIndex = i;
+
+            // loop through the unsorted portion of the array to find the next element to be moved
+            for (int j = i; j < n; j++) {
+                // find min for ascending
+                if {
+                    if (values[j] < values[selectionIndex]) {
+                        selectionIndex = j;
+                    }
+                // find max for descending
+                } else {
+                    if (values[j] > values[selectionIndex]) {
+                        selectionIndex = j;
+                    }
+                }
+            }
+
+            // swap selectionIndex i with j
+            int temp = values[i];
+            values[i] = values[selectionIndex];
+            values[selectionIndex] = temp;
 
         }
 
